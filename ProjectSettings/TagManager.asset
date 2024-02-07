@@ -7,11 +7,12 @@ TagManager:
   - Enemy
   - Puzzle
   - ScenarioTrigger
+  - InteractUi
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - 
