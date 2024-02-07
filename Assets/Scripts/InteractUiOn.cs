@@ -10,14 +10,17 @@ public class InteractUiOn : MonoBehaviour
 
     private RaycastHit hit;
 
+    GameObject targetObject;
+
     void init()
     {
         interactUiShowBox = GameObject.Find("InteractUiShowBox").GetComponent<Transform>();
         cam = GameObject.Find("PlayerCamera").GetComponent<Camera>();
     }
-    public IEnumerator changeUiPos(GameObject target)
+    public IEnumerator changeUiPos(GameObject target, float layDistance)
     {
         init();
+        targetObject = target;
         while (true)
         {
             stay = false;
@@ -26,7 +29,7 @@ public class InteractUiOn : MonoBehaviour
 
             foreach (Collider col in colliders)
             {
-                if (col.gameObject.Equals(target))
+                if (col.gameObject.Equals(targetObject))
                 {
                     stay = true;
                 }
@@ -38,7 +41,7 @@ public class InteractUiOn : MonoBehaviour
             else
             {
                 //2Áß°Ë»ç
-                if (Physics.Raycast(target.transform.position, cam.transform.position - target.gameObject.transform.position, out hit, Mathf.Infinity))
+                if (Physics.Raycast(target.transform.position, cam.transform.position - target.gameObject.transform.position, out hit, layDistance))
                 {
                     if (hit.collider.gameObject.layer == 3)
                     {
