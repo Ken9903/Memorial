@@ -18,7 +18,8 @@ public class InteractUiSetter : MonoBehaviour
     private RaycastHit hit;
     private RaycastHit hit_object;
 
-    int layermaskPlayer = 3;
+    public LayerMask playerMask;
+    public LayerMask outsidePlayerMask;
 
     private void Start()
     {
@@ -30,10 +31,9 @@ public class InteractUiSetter : MonoBehaviour
         bool showing = false;
         while (true)
         {
-            Debug.DrawRay(cam.transform.position, cam.transform.forward * centerLayDistance, Color.blue);
-            if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit_object, centerLayDistance, layermaskPlayer))
+            if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit_object, centerLayDistance, ~outsidePlayerMask))
             {
-                if (hit_object.collider.gameObject.CompareTag("InteractUi") && showing == false)
+                if (hit_object.collider.gameObject.CompareTag("InteractUi") && showing == false && hit_object.collider.GetComponent<objectInteracter>().uiOn == false)
                 {
                     showing = true;
                     makeInteractUi(hit_object.collider.gameObject);
@@ -50,18 +50,18 @@ public class InteractUiSetter : MonoBehaviour
     public void makeInteractUi(GameObject target)
     {
         //Ui객체에게 넘기기
-        GameObject instantUi = Instantiate(interactUi, mainCanvas.transform);
+        GameObject instantUi = Instantiate(target.GetComponent<objectInteracter>().ui, mainCanvas.transform);
+        target.GetComponent<objectInteracter>().uiOn = true;
         StartCoroutine(instantUi.GetComponent<InteractUiOn>().changeUiPos(target, layDistance));
     }
     
     private void OnTriggerEnter(Collider other) 
     {
-        if(other.CompareTag("InteractUi"))
+        if(other.CompareTag("InteractUi") && other.GetComponent<objectInteracter>().uiOn == false)
         {
-            Debug.DrawRay(other.gameObject.transform.position, cam.transform.position - other.gameObject.transform.position , Color.green);
-            if (Physics.Raycast(other.gameObject.transform.position, cam.transform.position - other.gameObject.transform.position, out hit,layDistance))
+            if (Physics.Raycast(other.gameObject.transform.position, cam.transform.position - other.gameObject.transform.position  , out hit, Mathf.Infinity, ~outsidePlayerMask)) //한번 호출이 되어서 단한번의 레이만쏨
             {
-                if (hit.collider.gameObject.layer == 3) 
+                if (hit.collider.gameObject.layer == 3)
                 {
                     makeInteractUi(other.gameObject);
                 }

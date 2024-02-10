@@ -152,7 +152,7 @@ public class CameraManager : MonoBehaviour
     public void checkShotObject()
     {
         Collider[] colliders =
-                   Physics.OverlapBox(cameraCheckCollider.transform.position, cameraCheckCollider.transform.localScale,cameraCheckCollider.transform.rotation);
+                   Physics.OverlapBox(cameraCheckCollider.transform.position, cameraCheckCollider.transform.localScale / 2,cameraCheckCollider.transform.rotation);
 
         foreach (Collider col in colliders)
         {

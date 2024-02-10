@@ -1346,7 +1346,7 @@ GameObject:
   - component: {fileID: 279990642}
   - component: {fileID: 279990641}
   - component: {fileID: 279990640}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: CheckBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3246,6 +3246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f32a3d9a708e5e0428ba5e1010e018f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cam: {fileID: 1061359744}
   layDistance: 4
 --- !u!114 &726124291
 MonoBehaviour:
@@ -3290,6 +3291,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29c54e24be5594a4b9e9cf72208d144c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactor: {fileID: 726124285}
 --- !u!1001 &740321713
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5109,7 +5111,7 @@ GameObject:
   - component: {fileID: 1015416799}
   - component: {fileID: 1015416798}
   - component: {fileID: 1015416797}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: InteractUiShowBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5155,13 +5157,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a34a7a3c47d58446a4c3af559a7aec7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  centerLayDistance: 3
+  centerLayDistance: 2.9
   layDistance: 3
   optimization_centerUiSet: 0.1
   interactUi: {fileID: 3524478599270292190, guid: 61ee33bcf96baaa4dacb9058cc945b35, type: 3}
   cam: {fileID: 1061359744}
   mainCanvas: {fileID: 1915656708}
   interactUiShowBox: {fileID: 1015416795}
+  playerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  outsidePlayerMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!23 &1015416799
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5810,7 +5818,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1061359741}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -6109,7 +6117,7 @@ GameObject:
   - component: {fileID: 1120693731}
   - component: {fileID: 1120693730}
   - component: {fileID: 1120693729}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6186,8 +6194,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1120693728}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.553, y: 1.634, z: -5.986}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalPosition: {x: 4.487, y: 1.9921, z: -5.158}
+  m_LocalScale: {x: 2, y: 2.7162, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 8
@@ -9176,6 +9184,7 @@ GameObject:
   - component: {fileID: 1801128539}
   - component: {fileID: 1801128538}
   - component: {fileID: 1801128537}
+  - component: {fileID: 1801128541}
   m_Layer: 0
   m_Name: Interactive (1)
   m_TagString: InteractUi
@@ -9259,6 +9268,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1801128541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1801128536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84ffbd39f03dd3c428386b6fe1e3ae59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  content: anim
+  ui: {fileID: 6732493130368780058, guid: 60fdd1ddbf301e14d9dc06944542726a, type: 3}
+  uiOn: 0
 --- !u!1 &1859702285
 GameObject:
   m_ObjectHideFlags: 0
@@ -9367,7 +9391,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84ffbd39f03dd3c428386b6fe1e3ae59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  content: 
+  content: search
+  ui: {fileID: 3524478599270292190, guid: 61ee33bcf96baaa4dacb9058cc945b35, type: 3}
+  uiOn: 0
 --- !u!1 &1859794263
 GameObject:
   m_ObjectHideFlags: 0

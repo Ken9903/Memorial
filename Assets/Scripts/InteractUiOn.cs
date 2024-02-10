@@ -12,6 +12,9 @@ public class InteractUiOn : MonoBehaviour
 
     GameObject targetObject;
 
+    int outsidePlayerMask = 1 << 6;
+    int interactMask = ~(1 << 8);
+
     void init()
     {
         interactUiShowBox = GameObject.Find("InteractUiShowBox").GetComponent<Transform>();
@@ -21,11 +24,12 @@ public class InteractUiOn : MonoBehaviour
     {
         init();
         targetObject = target;
+        Collider[] colliders;
         while (true)
         {
             stay = false;
-            Collider[] colliders =
-                  Physics.OverlapBox(interactUiShowBox.position, interactUiShowBox.localScale, interactUiShowBox.rotation);
+            colliders =
+                  Physics.OverlapBox(interactUiShowBox.position, interactUiShowBox.localScale / 2 , interactUiShowBox.rotation, interactMask);
 
             foreach (Collider col in colliders)
             {
@@ -41,7 +45,7 @@ public class InteractUiOn : MonoBehaviour
             else
             {
                 //2Áß°Ë»ç
-                if (Physics.Raycast(target.transform.position, cam.transform.position - target.gameObject.transform.position, out hit, layDistance))
+                if (Physics.Raycast(target.gameObject.transform.position, cam.transform.position - target.gameObject.transform.position, out hit, Mathf.Infinity, ~outsidePlayerMask))
                 {
                     if (hit.collider.gameObject.layer == 3)
                     {
@@ -58,12 +62,12 @@ public class InteractUiOn : MonoBehaviour
             yield return null;
 
         }
-        StartCoroutine(destroyUi(this.gameObject));
+        StartCoroutine(destroyUi(this.gameObject, target));
     }
-    IEnumerator destroyUi(GameObject instantUi)
+    IEnumerator destroyUi(GameObject instantUi, GameObject target)
     {
-        Debug.Log("destroy");
         yield return new WaitForEndOfFrame();
+        target.GetComponent<objectInteracter>().uiOn = false;
         Destroy(instantUi);
     }
 }
